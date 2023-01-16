@@ -4,13 +4,18 @@ from datetime import datetime
 
 APP_ID = app_id
 API_KEY = api_key
+SHEET_TOKEN = sheet_token
 
 nutritionix_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
-sheety_endpoint = f"https://api.sheety.co/{username}/{projectName}/{sheetName}"
+sheet_endpoint = f"https://api.sheety.co/{username}/{projectName}/{sheetName}"
 
 headers = {
     "x-app-id": APP_ID,
     "x-app-key": API_KEY,
+}
+
+sheet_headers = {
+    "Authorization": f"Bearer {SHEET_TOKEN}"
 }
 
 params = {
@@ -39,6 +44,6 @@ for exercise in result["exercises"]:
         }
     }
 
-    sheet_response = requests.post(sheety_endpoint, json=sheet_inputs)
+    sheet_response = requests.post(sheet_endpoint, json=sheet_inputs, headers=sheet_headers)
 
 print(sheet_response.text)
